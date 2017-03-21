@@ -1,0 +1,31 @@
+<div class='panel panel-default'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+
+    <div class='panel-body'>
+        <p>Score: {{wins}} Wins - {{losses}} Losses</p>
+
+        <!--<p>Best Time: {{(bestTime / 1000) | number: 2}} seconds</p>-->
+        <!--<button type="button" ng-show="showGrid" ng-click="newGame()">New Game</button>-->
+        <div class="grid col-md-6">
+            <div class="row" *ngFor='let row of minesweeperBoard.cells; let i = index'>
+                <div [className]="cell.isCovered ? 'cell covered' : 'cell uncovered'"
+                    (click)='landOn(cell)'
+                    *ngFor="let cell of row; let j = index">
+                    <span class='hidden' *ngIf='cell.isCovered' ></span>
+                    <span class="flag" *ngIf="cell.isFlaged && cell.isCovered"></span>
+                    <span class="mine" *ngIf="cell.hasMine && !cell.isCovered"></span>
+                    <span 
+                        *ngIf='cell.isNearbyVisible()'
+                        [innerHtml]='cell.nearBy'
+                        class="nearby-{{cell.nearBy}}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="grid col-md-6">
+            Time passed: {{ ticks}}
+        </div>  
+    </div>
+
+</div>
